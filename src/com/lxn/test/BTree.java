@@ -154,11 +154,67 @@ class BTree {
         node.rightChild = createBTreePre(size,data);
         return node;
     }
+
+    // 删除节点
+    public TreeNode deleteNode(int key) {
+        TreeNode node = searchNode(key);
+        if (node == null) {
+            return null;
+        } else {
+            TreeNode parent = node.parent;
+            // 删除的节点没有左子树和右子树，判断该节点是父节点的左子树还是右子树，置为null
+            if (node.leftChild == null && node.rightChild == null) {
+                if (node == parent.leftChild) {
+                    parent.leftChild = null;
+                } else {
+                    parent.rightChild = null;
+                }
+            }
+            // 删除的节点有左子树，没有右子树
+            if (node.leftChild != null && node.rightChild == null) {
+                if (node == parent.leftChild) {
+                    parent.leftChild = node.leftChild;
+                } else {
+                    parent.rightChild = node.leftChild;
+                }
+            }
+            // 删除的节点有右子树，没有左子树
+            if (node.leftChild == null && node.rightChild != null) {
+                if (node == parent.leftChild) {
+                    parent.leftChild = node.rightChild;
+                } else {
+                    parent.rightChild = node.rightChild;
+                }
+            }
+        }
+        return null;
+    }
+
+    // 查找节点
+    public TreeNode searchNode(int key) {
+        TreeNode<Integer> node = new TreeNode<>(1,50);
+            while (node != null && node.data != key) {
+                if (key > node.data) {
+                    node = node.rightChild;
+                } else {
+                    node = node.rightChild;
+                }
+            }
+            return node;
+    }
+    /*
+    * 构建查找二叉树
+    * */
+    public void putTreeNode(int value) {
+
+    }
+
     public class TreeNode<T> {
         private int index;
         private T data;
-        TreeNode leftChild;
-        TreeNode rightChild;
+        TreeNode<T> leftChild;
+        TreeNode<T> rightChild;
+        TreeNode<T> parent;
 
         public int getIndex() {
             return index;

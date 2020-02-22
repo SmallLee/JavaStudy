@@ -20,6 +20,7 @@ public class TestBTree {
         ArrayList<String> dataList = new ArrayList<>();
         Collections.addAll(dataList, arrArray);
         bTree.createBTreePre(dataList);
-        bTree.preOrder();
+//        bTree.preOrder();
+        bTree.searchNode(0);
     }
 }
